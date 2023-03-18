@@ -52,12 +52,11 @@ public class Jogo {
             String n = j.getNome();
             Cartas carta = j.getCarta();
 
-            System.out.println(n + ": " + carta.toString());
+            System.out.println(n + " | " + carta.toString());
         }
     }
 
-    public Jogadores determinar_vencedor(Jogadores[] jogadores){
-        System.out.println("Falta arrumar aqui determinar_vencedor()");
+    public void determinar_vencedor(Jogadores[] jogadores){
         int count = 0;
 
         for (int i = 0; i < jogadores.length; i++) {
@@ -86,6 +85,7 @@ public class Jogo {
             }
         }
 
-        return jogadores[count];
+        System.out.println("");
+        System.out.println("O vencedor é: " + jogadores[count].getNome() + " com a carta " + jogadores[count].getCarta().toString());
     }
 }
