@@ -26,23 +26,23 @@ public class Jogo {
         this.jogadores = jogadores;
     }
 
-    public void distribuir_cartas(Jogadores[] jogadores, Baralhos baralho1) {
+    public void distribuir_cartas(Jogadores[] jogadores, Baralhos baralho) {
         Random random = new Random();
-        Cartas[][] baralho = baralho1.getBaralho();
+        Cartas[][] cartas = baralho.getBaralho();
 
 
         for (int i = 0; i < jogadores.length; i++) {
             int num = random.nextInt(12);
             int naip = random.nextInt(3);
 
-            while (baralho[num][naip].isComprada()) {
+            while (cartas[num][naip].isComprada()) {
                 num = random.nextInt(12);
                 naip = random.nextInt(3);
             }
 
             Jogadores j = jogadores[i];
-            j.setCarta(baralho[num][naip]);
-            baralho[num][naip].setComprada(true);
+            j.setCarta(cartas[num][naip]);
+            cartas[num][naip].setComprada(true);
         }
     }
 

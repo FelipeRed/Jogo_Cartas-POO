@@ -1,18 +1,18 @@
 package Classes;
 
 public class Baralhos {
-    private Cartas[][] baralho;
+    private Cartas[][] cartas;
 
     public Baralhos() {
-        this.baralho = gerar_baralho();
+        this.cartas = gerar_baralho();
     }
 
     public Cartas[][] getBaralho() {
-        return baralho;
+        return cartas;
     }
 
     public void setBaralho(Cartas[][] baralho) {
-        this.baralho = baralho;
+        this.cartas = baralho;
     }
 
     private Cartas[][] gerar_baralho() {
