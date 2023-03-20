@@ -1,13 +1,11 @@
 package Classes;
 import java.util.Random;
 
-public class Jogo {
+public class Jogo_Cartas {
     private Jogadores[] jogadores;
     private Baralhos baralho;
 
-    public Jogo(Jogadores[] jogadores, Baralhos baralho) {
-        this.jogadores = jogadores;
-        this.baralho = baralho;
+    public Jogo_Cartas() {
     }
 
     public Baralhos getBaralho() {
@@ -26,9 +24,21 @@ public class Jogo {
         this.jogadores = jogadores;
     }
 
-    public void distribuir_cartas(Jogadores[] jogadores, Baralhos baralho) {
+    public void gerar_jogadores(String nome1, String nome2, String nome3, String nome4, String nome5) {
+        Jogadores jog1 = new Jogadores("Felipe");
+        Jogadores jog2 = new Jogadores("Vidal");
+        Jogadores jog3 = new Jogadores("Juliana");
+        Jogadores jog4 = new Jogadores("Zizá");
+        Jogadores jog5 = new Jogadores("Nicole");
+
+        Jogadores[] jogadores = {jog1, jog2, jog3, jog4, jog5};
+
+        this.jogadores = jogadores;
+    }
+
+    public void distribuir_cartas() {
         Random random = new Random();
-        Cartas[][] cartas = baralho.getBaralho();
+        Cartas[][] cartas = this.baralho.getCartas();
 
 
         for (int i = 0; i < jogadores.length; i++) {
@@ -46,9 +56,9 @@ public class Jogo {
         }
     }
 
-    public void mostrar_maos(Jogadores[] jogadores) {
-        for (int i = 0; i < jogadores.length; i++) {
-            Jogadores j = jogadores[i];
+    public void mostrar_maos() {
+        for (int i = 0; i < this.jogadores.length; i++) {
+            Jogadores j = this.jogadores[i];
             String n = j.getNome();
             Cartas carta = j.getCarta();
 
@@ -56,10 +66,10 @@ public class Jogo {
         }
     }
 
-    public void determinar_vencedor(Jogadores[] jogadores){
+    public void determinar_vencedor(){
         int count = 0;
 
-        for (int i = 0; i < jogadores.length; i++) {
+        for (int i = 0; i < this.jogadores.length; i++) {
             if (count != 0) {
                 count = i - 1;
                 break;
@@ -68,7 +78,7 @@ public class Jogo {
             Jogadores j = jogadores[i];
             Cartas carta_jog1 = j.getCarta();
 
-            for (int k = 0; k <jogadores.length; k++) {
+            for (int k = 0; k < this.jogadores.length; k++) {
                 Cartas carta_jog_x = jogadores[k].getCarta();
 
                 if (carta_jog1.getValor() == carta_jog_x.getValor()) {
@@ -86,6 +96,6 @@ public class Jogo {
         }
 
         System.out.println("");
-        System.out.println("O vencedor é: " + jogadores[count].getNome() + " com a carta " + jogadores[count].getCarta().toString());
+        System.out.println("O vencedor é: " + this.jogadores[count].getNome() + " com a carta " + this.jogadores[count].getCarta().toString());
     }
 }

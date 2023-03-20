@@ -7,7 +7,7 @@ public class Baralhos {
         this.cartas = gerar_baralho();
     }
 
-    public Cartas[][] getBaralho() {
+    public Cartas[][] getCartas() {
         return cartas;
     }
 
