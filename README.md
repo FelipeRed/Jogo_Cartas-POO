@@ -1,4 +1,4 @@
-# Jogo_Cartas-POO
+# Jogos-POO
 Procurei um desafio para estudar POO e encontrei esse que consistia em fazer um jogo de cartas.
 
 LÓGICA DO JOGO
