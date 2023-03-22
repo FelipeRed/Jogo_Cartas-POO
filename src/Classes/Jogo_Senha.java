@@ -3,8 +3,8 @@ package Classes;
 public class Jogo_Senha {
     private Senha senha;
 
-    public Jogo_Senha(Senha senha) {
-        this.senha = senha;
+    public Jogo_Senha() {
+        senha = new Senha();
     }
 
     public Senha getSenha() {
@@ -51,7 +51,7 @@ public class Jogo_Senha {
         for (int j = 0; j < p_palpite.length; j++) {
             if (p_palpite[j] != 0) {
                 for (int k = 0; k < p_palpite.length; k++) {
-                    if (p_palpite[j] == p_senha[k]) {
+                    if ((p_palpite[j] == p_senha[k]) && (p_senha[k] != 0)) {
                         num_certos += 1;
                         break;
                     }

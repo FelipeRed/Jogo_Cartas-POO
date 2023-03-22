@@ -20,8 +20,7 @@ public class Main {
             jogo.mostrar_maos();
             jogo.determinar_vencedor();
         } else {
-            Senha senha = new Senha();
-            Jogo_Senha jogo = new Jogo_Senha(senha);
+            Jogo_Senha jogo = new Jogo_Senha();
             jogo.imprimir_regras();
 
             //lista que será usada como histórico de tentativas do jogador
@@ -29,7 +28,7 @@ public class Main {
 
             //variável que se tornada verdadeira significa que o jogador venceu
             boolean resultado = false;
-            for (int i = 0; i < 7; i++) {
+            for (int i = 0; i < 10; i++) {
                 System.out.print("Digite seu palpite: ");
                 int input = teclado.nextInt();
 
@@ -50,13 +49,13 @@ public class Main {
                 for (String item : historico) {
                     System.out.println(item);
                 }
-                System.out.println("Tentativas restantes: " + i);
+                System.out.println("Tentativas restantes: " + (9 - i));
             }
 
             if (resultado) {
                 System.out.println("Parabéns você descobriu a senha!");
             } else {
-                System.out.println("Você falhou... A senha era " + senha.toString());
+                System.out.println("Você falhou... A senha era " + jogo.getSenha().toString());
             }
         }
     }
