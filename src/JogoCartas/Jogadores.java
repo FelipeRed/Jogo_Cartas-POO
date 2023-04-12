@@ -1,8 +1,8 @@
-package Classes;
+package JogoCartas;
 
 public class Jogadores {
     private String nome;
-    private Cartas carta;
+    private Carta carta;
 
     public Jogadores(String nome) {
         this.nome = nome;
@@ -16,11 +16,11 @@ public class Jogadores {
         this.nome = nome;
     }
 
-    public Cartas getCarta() {
+    public Carta getCarta() {
         return carta;
     }
 
-    public void setCarta(Cartas carta) {
+    public void setCarta(Carta carta) {
         this.carta = carta;
     }
 }

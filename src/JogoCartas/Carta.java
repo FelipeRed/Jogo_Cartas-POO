@@ -1,11 +1,11 @@
-package Classes;
+package JogoCartas;
 
-public class Cartas {
+public class Carta {
     private int valor;
     private int naipe;
     private boolean comprada;
 
-    public Cartas(int valor, int naipe) {
+    public Carta(int valor, int naipe) {
         this.valor = valor;
         this.naipe = naipe;
         this.comprada = false;
@@ -23,16 +23,8 @@ public class Cartas {
         return valor;
     }
 
-    public void setValor(int valor) {
-        this.valor = valor;
-    }
-
     public int getNaipe() {
         return naipe;
-    }
-
-    public void setNaipe(int naipe) {
-        this.naipe = naipe;
     }
 
     @Override
