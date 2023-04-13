@@ -1,8 +1,5 @@
-package JogoSenha;
-import java.util.ArrayList;
-import java.util.Scanner;
 /* ALGORITMO
-enquanto (tentativa < 10) {
+enquanto (não atingir 10 tentativas) {
     digite um palpite
     verificar quantos números estão nas posições certas (x)
     verificar quantos números estão certos, mas nas posições erradas (y)
@@ -12,18 +9,35 @@ enquanto (tentativa < 10) {
     } se não {
         imprime o histórico de tentativas informando x e y
     }
-}*/
+}
+se (jogador já possuir um recorde) {
+    se (pontuação atual for maior que o recorde) {
+        atualizar o recorde
+    } se não {
+        mostrar a pontuação e o recorde atual
+    }
+} se não {
+    criar um novo recorde do jogador com a sua pontuação
+}
+*/
+package Jogos.JogoSenha;
+import Classes.Jogador;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-public class Jogo_Senha {
+import static Classes.FuncoesComuns.atualizar_Ou_Adicionar_NovoRecorde;
+
+public class Jogo_Senha {  //o algoritmo do jogo está comentado no início do código
+    private static final String nomeJogo = "Senha";
     private final Senha senha;
 
-    public static void main(String[] args) {
+    public static void main(String[] args, Jogador jogadorAtual) {
         Scanner input = new Scanner(System.in);
         Jogo_Senha jogo = new Jogo_Senha();
 
         jogo.imprimir_regras();
 
-        ArrayList<String> historico = new ArrayList<>(); //lista com o histórico de tentativas do jogador
+        ArrayList<String> historico = new ArrayList<>();
         int pontuacao = 0;
         int i = 0;
         while (i < 10) {
@@ -44,7 +58,7 @@ public class Jogo_Senha {
                 i++;
             }
         }
-        resultado_Partida(pontuacao, jogo.getSenha().toString());
+        atualizar_Ou_Adicionar_NovoRecorde(jogadorAtual, pontuacao, nomeJogo);
     }
 
     public Jogo_Senha() {
@@ -53,6 +67,10 @@ public class Jogo_Senha {
 
     public Senha getSenha() {
         return senha;
+    }
+
+    public static String getNome() {
+        return nomeJogo;
     }
 
     public void imprimir_regras() {
@@ -78,16 +96,14 @@ public class Jogo_Senha {
         int[] p_palpite = get_posicoes(palpite);
         int num_e_pos_certa = 0;
         int num_certos = 0;
-        //laço que irá contar quantos números estão na posição certa
-        for (int i = 0; i < p_palpite.length; i++) {
+        for (int i = 0; i < p_palpite.length; i++) {  //para os números na posição certo
             if (p_palpite[i] == p_senha[i]) {
                 num_e_pos_certa += 1;
                 p_palpite[i] = 0;
                 p_senha[i] = 0;
             }
         }
-        //laço que irá contar quantos números estão certos, mas na posição errada
-        for (int i = 0; i < p_palpite.length; i++) {
+        for (int i = 0; i < p_palpite.length; i++) {  //para os números certos nas posições erradas
             if (p_palpite[i] != 0) {
                 for (int j = 0; j < p_palpite.length; j++) {
                     if ((p_palpite[i] == p_senha[j])) {
@@ -114,7 +130,7 @@ public class Jogo_Senha {
     }
 
     public static void print_Historico(ArrayList<String> historico , int i) {
-        //laço que irá imprimir o histórico de todas as jogadas do jogador
+        //laço que irá imprimir todas as tentativas do jogador
         for (String item : historico) {
             System.out.println(item);
         }
@@ -122,6 +138,7 @@ public class Jogo_Senha {
     }
 
     public static void resultado_Partida(int pontuacao, String senha) {
+        //irá determinar se o jogador venceu ou não, e qual foi sua pontuação
         if (pontuacao > 0) {
             System.out.println("Parabéns você descobriu a senha!");
             System.out.println("Sua pontuação: " + pontuacao);

@@ -1,4 +1,4 @@
-package JogoCartas;
+package Jogos.JogoCartas;
 
 public class Baralho {
     private final Carta[][] cartas;

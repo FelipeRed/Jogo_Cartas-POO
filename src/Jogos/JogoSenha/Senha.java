@@ -1,4 +1,4 @@
-package JogoSenha;
+package Jogos.JogoSenha;
 import java.util.Random;
 
 public class Senha {

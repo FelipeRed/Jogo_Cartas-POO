@@ -1,11 +1,11 @@
-package JogoTyper;
+package Jogos.JogoTyper;
 
 public class Cronometro {
     private long inicio;
     private long fim;
 
     public void iniciar() {
-        inicio = System.currentTimeMillis();
+        inicio = System.currentTimeMillis(); //pega o tempo atual do sistema
     }
 
     public void parar() {
