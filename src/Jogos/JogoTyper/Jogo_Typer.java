@@ -14,21 +14,21 @@ enquanto(input do usuario estiver errado) {
             dificuldade das palavras = fácil
         }
     }
-}
-*/
+}*/
 package Jogos.JogoTyper;
 import Classes.Jogador;
 import java.util.Random;
 import java.util.Scanner;
-
-import static Classes.FuncoesComuns.atualizar_Ou_Adicionar_NovoRecorde;
+import static Classes.FuncoesComuns.*;
 
 public class Jogo_Typer {  //o algoritmo do jogo está comentado no início do código
-    private static final String nomeJogo = "Typer";
-    public static void main(String[] args, Jogador jogadorAtual) {
+    private static final String nomeJogo = "Jogo da Digitação";
+    public static void main(Jogador jogadorAtual) {
         Scanner teclado = new Scanner(System.in);
         Random rdn = new Random();
         Cronometro cronometro = new Cronometro();
+        imprimirRegras();
+        pausarPrograma();
 
         String[] facil = {"CASA", "AMIGO", "GATO", "CAMA", "RATO", "FLOR", "SOL", "RISO", "LUA", "BOM"};
         String[] medio = {"COMPUTADOR", "CAMPAINHA", "COLABORAÇÃO", "PROPRIEDADE", "UNIVERSIDADE", "INDÚSTRIA",
@@ -76,7 +76,15 @@ public class Jogo_Typer {  //o algoritmo do jogo está comentado no início do c
                 }
             }
         }
+        limpar_tela();
         atualizar_Ou_Adicionar_NovoRecorde(jogadorAtual, pontuacao, nomeJogo);
+    }
+    public static void imprimirRegras() {
+        System.out.println("REGRAS DO JOGO:");
+        System.out.println("- Você deve digitar a palavra que aparecer em menos de 5 segundos.");
+        System.out.println("- A cada 10 tentativas bem sucedidas a dificuldade aumentará, e você ganhará mais pontos" +
+                "\n  por tentativa bem sucedida.");
+        pausarPrograma();
     }
     public static String getNome() {
         return nomeJogo;

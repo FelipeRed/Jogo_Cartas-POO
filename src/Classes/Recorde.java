@@ -6,13 +6,13 @@ public class Recorde {
     private Jogador jogador;
     private String jogo;
     private int pontuacao;
-    private String data;
+    private Date data;
 
     public Recorde(int pontuacao, Jogador jogador, String jogo) {
         this.pontuacao = pontuacao;
         this.jogador = jogador;
         this.jogo = jogo;
-        this.data = getDataAtual();
+        this.data = new Date();
     }
 
     public Jogador getJogador() {
@@ -38,19 +38,22 @@ public class Recorde {
     public void setPontuacao(int pontuacao) {
         this.pontuacao = pontuacao;
     }
-
-    public String getData() {
-        return data;
+    public Date getData() {
+        return this.data;
+    }
+    public String getDataFormatada() {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        return formato.format(this.data);
     }
     public void setData() {
-        this.data = getDataAtual();
+        this.data = new Date();
     }
     public void atualizarRecorde(int pontuacao) {
         this.pontuacao = pontuacao;
     }
-    private String getDataAtual() {
-        Date dataAtual = new Date();
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        return formato.format(dataAtual);
+
+    @Override
+    public String toString() {
+        return jogo + " |  " + jogador.getNickname() + "  |  " +  pontuacao + "  |  " +  getDataFormatada();
     }
 }
