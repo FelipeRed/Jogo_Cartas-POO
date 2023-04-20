@@ -54,6 +54,6 @@ public class Recorde {
 
     @Override
     public String toString() {
-        return jogo + " |  " + jogador.getNickname() + "  |  " +  pontuacao + "  |  " +  getDataFormatada();
+        return jogo + " |  " + jogador.getNickname() + "  |   " +  pontuacao + "  |  " +  getDataFormatada();
     }
 }

@@ -21,6 +21,9 @@ se (jogador já possuir um recorde) {
 }*/
 package Jogos.JogoSenha;
 import Classes.Jogador;
+import Classes.Players;
+import Classes.Ranking;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import static Classes.FuncoesComuns.*;
@@ -29,7 +32,7 @@ public class Jogo_Senha {  //o algoritmo do jogo está comentado no início do c
     private static final String nomeJogo = "Adivinhe a Senha";
     private final Senha senha;
 
-    public static void main(Jogador jogadorAtual) {
+    public static void main(Jogador jogadorAtual, Players players, Ranking ranking) {
         Scanner teclado = new Scanner(System.in);
         Jogo_Senha jogo = new Jogo_Senha();
 
@@ -55,6 +58,7 @@ public class Jogo_Senha {  //o algoritmo do jogo está comentado no início do c
         resultado_Partida(pontuacao, jogo.senha.toString());
         pausarPrograma();
         atualizar_Ou_Adicionar_NovoRecorde(jogadorAtual, pontuacao, nomeJogo);
+        ranking = new Ranking(players);
     }
 
     public Jogo_Senha() {
@@ -67,7 +71,7 @@ public class Jogo_Senha {  //o algoritmo do jogo está comentado no início do c
         System.out.println("REGRAS DO JOGO:");
         System.out.println(" - A senha possui 4 dígitos.");
         System.out.println(" - Os números podem repetir.");
-        System.out.println(" - Números possíveis: 1, 2, 3, 4.\n");
+        System.out.print(" - Números possíveis: 1, 2, 3, 4.\n");
     }
     private int[] get_posicoes(int palpite) {  //irá retornar um array com o valor de cada posição do palpite
         int primeira_posicao = (palpite / 1000) % 10;

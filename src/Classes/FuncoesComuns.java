@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class FuncoesComuns {
     public static void atualizar_Ou_Adicionar_NovoRecorde(Jogador jogador, int pontos, String nomeJogo){
         //função que será utilizada sempre ao final de cada jogo
-        Scanner teclado = new Scanner(System.in);
         HashMap<String, Recorde> recordes = jogador.getRecordes();
         Recorde recordeAtual = recordes.get(nomeJogo);
         if (recordeAtual != null) {
@@ -35,7 +34,7 @@ public class FuncoesComuns {
     public static void pausarPrograma() {
         Scanner teclado = new Scanner(System.in);
         System.out.print("Pressione ENTER para continuar: ");
-        String s = teclado.nextLine();
+        teclado.nextLine();
         limpar_tela();
     }
 }

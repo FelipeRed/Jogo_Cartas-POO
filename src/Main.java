@@ -1,8 +1,11 @@
 import Classes.Players;
 import Classes.Jogador;
+import Classes.Ranking;
+import Classes.Recorde;
 import Jogos.JogoTyper.Jogo_Typer;
 import Jogos.JogoSenha.Jogo_Senha;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 import static Classes.FuncoesComuns.limpar_tela;
@@ -10,37 +13,44 @@ import static Classes.FuncoesComuns.pausarPrograma;
 
 public class Main {
     private static Jogador jogadorAtivo;
+    private static Players players = new Players();
+    private static Ranking ranking;
     private static final String[] jogos = {Jogo_Senha.getNome(), Jogo_Typer.getNome()};
     public static void main(String[] args) {
-        Players players = new Players();
-        int resposta = criarConta_Ou_LogarSe();
+        criarAlgunsJogadores();
+//        int resposta = criarConta_Ou_LogarSe();
+//        limpar_tela();
+//        if (resposta == 1) {
+//            createAccount(players);
+//        } else {
+//            login(players);
+//        }
+        //para facilitar os testes comentar as linhas acima e descomentar a linha 26
+        jogadorAtivo = new Jogador("Sacy", "sacypere", "sacy@gmail.com", "12345");
+        jogadorAtivo.addRecord(jogos[0], new Recorde(40, jogadorAtivo, jogos[0]));
+        players.add_conta_BD(jogadorAtivo);
+        ranking = new Ranking(players);
+        escolherProximoPasso();
         limpar_tela();
-        if (resposta == 1) {
-            createAccount(players);
-        } else {
-            login(players);
-        }
-        limpar_tela();
-        //para facilitar os testes comentar tudo que está acima desta linha e descomentar a linha de baixo
-        //jogadorAtivo = new Jogador("Felipe", "Phelpsklm", "fe_red@gmail.com", "12345");
-        int escolha = 3;
-        while (escolha == 3) {
-            escolha = escolherJogo();
+
+        int escolha = 4;
+        while (escolha == 4) {
+            escolha = escolherJogo("jogar");
             limpar_tela();
             switch (escolha) {
-                case 1:
+                case 1 -> {
                     while (escolha == 1) {
-                        Jogo_Senha.main(jogadorAtivo);
+                        Jogo_Senha.main(jogadorAtivo, players, ranking);
                         escolha = escolherProximoPasso();
                     }
-                    break;
-                default:
+                }
+                default -> {
                     escolha = 1;
                     while (escolha == 1) {
-                        Jogo_Typer.main(jogadorAtivo);
+                        Jogo_Typer.main(jogadorAtivo, players, ranking);
                         escolha = escolherProximoPasso();
                     }
-                    break;
+                }
             }
         }
         System.out.println("Volte sempre!");
@@ -74,6 +84,7 @@ public class Main {
                 }
             }
         }
+
         String email1 = "";
         String email2 = "";
         while (email1.equals(email2)) {  //verificar se o email inserido já não foi utilizado
@@ -88,6 +99,7 @@ public class Main {
         }
         String senha1 = "a";
         String senha2 = "";
+
         while (!senha1.equals(senha2)) {  //realizar a confirmação de senha
             System.out.print("Insira sua senha: ");
             senha1 = teclado.nextLine();
@@ -97,9 +109,10 @@ public class Main {
                 System.out.println("As senhas não bateram, preencha novamente.");
             }
         }
+
         Jogador j = new Jogador(nome, nick1, email1, senha1);
         players.add_conta_BD(j);
-        setJogadorAtivo(j);
+        jogadorAtivo = j;
         limpar_tela();
     }
     public static void login(Players players) {
@@ -139,35 +152,76 @@ public class Main {
                 System.out.println("Senha inválida, tente novamente.");
             }
         }
-        setJogadorAtivo(player);
+        jogadorAtivo = player;
         limpar_tela();
     }
-    public static int escolherJogo() {
+    public static int escolherJogo(String acao) {
+        //imprime os jogos disponíveis na biblioteca e retorna o escolhido
+        //o parâmetro ação indicara se essa função está sendo usada para escolher um jogo a ser jogado
+        //ou um jogo a ser consultado
         Scanner teclado = new Scanner(System.in);
-        System.out.println("Biblioteca de jogos:");
-        int x = 1;
-        for (String jogo : jogos) {
-            System.out.println(x + "- " + jogo);
-            x++;
+        int escolha = 0;
+        while ((escolha < 1) || (escolha > jogos.length)) {
+            limpar_tela();
+            System.out.println("Biblioteca de jogos:");
+            int i = 1;
+            for (String jogo : jogos) {
+                System.out.println(i + "- " + jogo);
+                i++;
+            }
+            if (acao.equals("jogar")) {
+                System.out.print("Insira o número do jogo você gostaria de jogar: ");
+            } else {
+                System.out.print("Insira o número do jogo você gostaria de consultar o ranking: ");
+            }
+            escolha = teclado.nextInt();
         }
-        System.out.print("Qual jogo você gostaria de jogar: ");
-        return teclado.nextInt();
+        return escolha;
     }
     public static int escolherProximoPasso() {
         Scanner teclado = new Scanner(System.in);
-        System.out.println("OPÇÕES:");
-        System.out.println("1- jogar novamente\n2- consultar seus recordes\n3- jogar outro jogo\n4- Sair");
-        System.out.print("O que gostaria de fazer: ");
-        int escolha = teclado.nextInt();
+        int escolha = 0;
+        while ((escolha < 1) || (escolha > 5)) {
+            limpar_tela();
+            System.out.println("OPÇÕES:");
+            System.out.println("""
+                1- Jogar novamente
+                2- Consultar seus recordes
+                3- Consultar o ranking
+                4- Jogar outro jogo
+                5- Sair""");
+            System.out.print("O que gostaria de fazer: ");
+            escolha = teclado.nextInt();
+        }
         limpar_tela();
         if (escolha == 2) {
             jogadorAtivo.mostrarRecordes();
             pausarPrograma();
             escolha = escolherProximoPasso();
+        } else if (escolha == 3) {
+            escolha = 1;
+            //escolha = escolherJogo("consultar ranking");
+            ranking.printRankingDoJogo(jogos[escolha-1]); //escolha-1 pq o array de jogos começa em 0
+            pausarPrograma();
+            escolha = escolherProximoPasso();
         }
         return escolha;
     }
-    public static void setJogadorAtivo(Jogador jogador) {
-        jogadorAtivo = jogador;
+    public static void criarAlgunsJogadores() { //irá criar alguns jogadores com recordes aleatórios
+        Random rdn = new Random();
+        String[] nomes = {"Breno", "Diogo", "Felipe", "Gabriel"};
+        String[] nicknames = {"brenors", "bonet-", "phelpsklm", "gebex"};
+        int i = 0;
+        for (String nome : nomes) {
+            String email = nome.toLowerCase() + "gmail.com";
+            String senha = nome.toLowerCase() + "123";
+            Jogador j = new Jogador(nome, nicknames[i], email, senha);
+            players.add_conta_BD(j);
+            Recorde r1 = new Recorde(rdn.nextInt(10)*10, j, jogos[0]);
+            Recorde r2 = new Recorde(rdn.nextInt(10)*10, j, jogos[1]);
+            j.addRecord(jogos[0], r1);
+            j.addRecord(jogos[1], r2);
+            i++;
+        }
     }
 }

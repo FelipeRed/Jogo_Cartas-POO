@@ -1,7 +1,6 @@
 package Classes;
 import Jogos.JogoSenha.Jogo_Senha;
 import Jogos.JogoTyper.Jogo_Typer;
-
 import java.util.HashMap;
 
 public class Jogador {
@@ -49,12 +48,12 @@ public class Jogador {
         return recordes;
     }
     public void mostrarRecordes() {
-        System.out.println("Jogo  |  Nickname  |  Pontuação  |  Data");
+        System.out.println("       Jogo       |  Nickname   |  Score  |  Data");
         String[] jogos = {Jogo_Senha.getNome(), Jogo_Typer.getNome()};
         HashMap<String, Recorde> recordes = this.getRecordes();
         for (String nomeJogo : jogos) {
-            Recorde r = recordes.get(nomeJogo);
-            if (r != null) {
+            Recorde r = recordes.get(nomeJogo);  //vai procurar a chave "nomeJogo" no Hashmap
+            if (r != null) {  //caso a chave exista
                 System.out.println(r);
             }
         }

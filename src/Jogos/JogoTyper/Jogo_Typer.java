@@ -17,18 +17,20 @@ enquanto(input do usuario estiver errado) {
 }*/
 package Jogos.JogoTyper;
 import Classes.Jogador;
+import Classes.Players;
+import Classes.Ranking;
+
 import java.util.Random;
 import java.util.Scanner;
 import static Classes.FuncoesComuns.*;
 
 public class Jogo_Typer {  //o algoritmo do jogo está comentado no início do código
     private static final String nomeJogo = "Jogo da Digitação";
-    public static void main(Jogador jogadorAtual) {
+    public static void main(Jogador jogadorAtual, Players players, Ranking ranking) {
         Scanner teclado = new Scanner(System.in);
         Random rdn = new Random();
         Cronometro cronometro = new Cronometro();
         imprimirRegras();
-        pausarPrograma();
 
         String[] facil = {"CASA", "AMIGO", "GATO", "CAMA", "RATO", "FLOR", "SOL", "RISO", "LUA", "BOM"};
         String[] medio = {"COMPUTADOR", "CAMPAINHA", "COLABORAÇÃO", "PROPRIEDADE", "UNIVERSIDADE", "INDÚSTRIA",
@@ -78,6 +80,7 @@ public class Jogo_Typer {  //o algoritmo do jogo está comentado no início do c
         }
         limpar_tela();
         atualizar_Ou_Adicionar_NovoRecorde(jogadorAtual, pontuacao, nomeJogo);
+        ranking = new Ranking(players);
     }
     public static void imprimirRegras() {
         System.out.println("REGRAS DO JOGO:");
