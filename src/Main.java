@@ -18,17 +18,17 @@ public class Main {
     private static final String[] jogos = {Jogo_Senha.getNome(), Jogo_Typer.getNome()};
     public static void main(String[] args) {
         criarAlgunsJogadores();
-//        int resposta = criarConta_Ou_LogarSe();
-//        limpar_tela();
-//        if (resposta == 1) {
-//            createAccount(players);
-//        } else {
-//            login(players);
-//        }
-        //para facilitar os testes comentar as linhas acima e descomentar a linha 26
-        jogadorAtivo = new Jogador("Sacy", "sacypere", "sacy@gmail.com", "12345");
-        jogadorAtivo.addRecord(jogos[0], new Recorde(40, jogadorAtivo, jogos[0]));
-        players.add_conta_BD(jogadorAtivo);
+        int resposta = criarConta_Ou_LogarSe();
+        limpar_tela();
+        if (resposta == 1) {
+            createAccount(players);
+        } else {
+            login(players);
+        }
+        //para facilitar os testes comentar as linhas acima e descomentar da linha 26 a 31
+        //jogadorAtivo = new Jogador("Sacy", "sacypere", "sacy@gmail.com", "12345");
+        //jogadorAtivo.addRecord(jogos[0], new Recorde(40, jogadorAtivo, jogos[0]));
+        //players.add_conta_BD(jogadorAtivo);
         ranking = new Ranking(players);
         escolherProximoPasso();
         limpar_tela();
